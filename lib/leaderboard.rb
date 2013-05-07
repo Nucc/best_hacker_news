@@ -22,8 +22,7 @@ class Leaderboard
   end
 
   def median
-    median = @redis.zrange(@name, count/2, count/2)
-    self[median]
+    entry = @redis.zrange(@name, count/2, count/2, {:withscores => true})[0][1]
   end
 
   def mean
