@@ -22,9 +22,20 @@ class Leaderboard
   end
 
   def median
-    sum = @redis.zcount(@name, "-inf", "+inf")
-    median = @redis.zrange(@name, sum/2, sum/2)
+    median = @redis.zrange(@name, count/2, count/2)
     self[median]
+  end
+
+  def mean
+    scores = @redis.zrange(@name, 0, count, {withscores: true})
+
+    sum = 0
+    scores.each { |x| sum += x[1] }
+    sum / count.to_f
+  end
+
+  def count
+    @redis.zcount(@name, "-inf", "+inf")
   end
 
 end

@@ -33,4 +33,12 @@ class LeaderboardTest < MiniTest::Unit::TestCase
 
     assert_equal 40, @board.median
   end
+
+  def test_mean
+    @board["user1"] = 1000
+    @board["user2"] = 30
+    @board["user3"] = 40
+
+    assert_equal (1000+30+40)/3.00, @board.mean
+  end
 end
