@@ -11,8 +11,18 @@ class LeaderboardTest < MiniTest::Unit::TestCase
     assert_equal "poker", @board.name
   end
 
-  def test_set_one_entry_to_board
+  def test_register_one_user_score
     @board["user1"] = 10
     assert_equal 10, @board["user1"]
+  end
+
+  def test_rank_for_more_players
+    @board["user1"] = 10
+    @board["user3"] = 20
+    @board["user2"] = 30
+
+    assert_equal 1, @board.rank("user2")
+    assert_equal 2, @board.rank("user3")
+    assert_equal 3, @board.rank("user1")
   end
 end

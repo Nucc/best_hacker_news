@@ -16,4 +16,8 @@ class Leaderboard
   def [](user)
     @redis.zscore(@name, user)
   end
+
+  def rank(user)
+    @redis.zrevrank(@name, user) + 1
+  end
 end
