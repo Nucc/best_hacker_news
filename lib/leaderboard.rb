@@ -6,6 +6,14 @@ class Leaderboard
 
   def initialize(name)
     @name = name
+    @redis = Redis.new
   end
 
+  def []=(user_id, score)
+    @redis.zadd(@name, score, user_id)
+  end
+
+  def [](user)
+    @redis.zscore(@name, user)
+  end
 end
