@@ -56,4 +56,13 @@ class LeaderboardTest < MiniTest::Unit::TestCase
 
     assert_equal 30, @board.mode
   end
+
+  def test_values_over_the_median
+    @board["user1"] = 1000
+    @board["user2"] = 30
+    @board["user3"] = 40
+    @board["user4"] = 50
+
+    assert_equal ["user4", "user1"], @board.values_over_the_median
+  end
 end

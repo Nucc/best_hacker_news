@@ -25,6 +25,10 @@ class Leaderboard
     entry = @redis.zrange(@name, count/2, count/2, {:withscores => true})[0][1]
   end
 
+  def values_over_the_median
+    @redis.zrange(@name, count/2, -1)
+  end
+
   def mean
     sum = 0
     all_with_scores.each { |x| sum += x[1] }

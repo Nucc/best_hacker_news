@@ -1,1 +1,5 @@
 # Leaderboard
+
+## Installing
+
+$ bundle install
