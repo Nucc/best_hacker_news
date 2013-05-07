@@ -20,4 +20,11 @@ class Leaderboard
   def rank(user)
     @redis.zrevrank(@name, user) + 1
   end
+
+  def median
+    sum = @redis.zcount(@name, "-inf", "+inf")
+    median = @redis.zrange(@name, sum/2, sum/2)
+    self[median]
+  end
+
 end

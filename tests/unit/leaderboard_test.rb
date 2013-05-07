@@ -25,4 +25,12 @@ class LeaderboardTest < MiniTest::Unit::TestCase
     assert_equal 2, @board.rank("user3")
     assert_equal 3, @board.rank("user1")
   end
+
+  def test_median
+    @board["user1"] = 1000
+    @board["user2"] = 30
+    @board["user3"] = 40
+
+    assert_equal 40, @board.median
+  end
 end
