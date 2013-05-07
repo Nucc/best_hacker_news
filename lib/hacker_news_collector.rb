@@ -43,7 +43,7 @@ class HackerNewsCollector
     body += "Median: #{@leader_board.median}\n"
     body += "Mode: #{@leader_board.mode}\n\n"
     body += "Interesting posts:\n\n"
-    @leader_board.values_over_the_median.each do |post_id|
+    @leader_board.values_over_the_median.reverse.each do |post_id|
       @news_items[post_id.to_s]
       post = @news_items[post_id.to_s]
       body += "#{post['title']} [points: #{post['points']}] (#{post['url']})\n\n"
