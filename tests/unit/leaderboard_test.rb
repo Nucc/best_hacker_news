@@ -5,6 +5,10 @@ class LeaderboardTest < MiniTest::Unit::TestCase
 
   def setup
     @board = Leaderboard.new("poker")
+
+    # Flush the redis database before each test run
+    @redis = Redis.new
+    @redis.flushall
   end
 
   def test_leaderboard_must_have_name
@@ -40,5 +44,16 @@ class LeaderboardTest < MiniTest::Unit::TestCase
     @board["user3"] = 40
 
     assert_equal (1000+30+40)/3.00, @board.mean
+  end
+
+  def test_mode
+    @board["user1"] = 1000
+    @board["user2"] = 30
+    @board["user3"] = 40
+    @board["user4"] = 30
+    @board["user5"] = 40
+    @board["user6"] = 30
+
+    assert_equal 30, @board.mode
   end
 end

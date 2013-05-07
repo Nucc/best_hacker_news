@@ -26,15 +26,29 @@ class Leaderboard
   end
 
   def mean
-    scores = @redis.zrange(@name, 0, count, {withscores: true})
-
     sum = 0
-    scores.each { |x| sum += x[1] }
+    all_with_scores.each { |x| sum += x[1] }
     sum / count.to_f
+  end
+
+  def mode
+    bag = {}
+    @redis.zrangebyscore(@name, "-inf", "+inf", {withscores: true}).each do |value|
+      name, score = value
+      bag[score] ||= 0
+      bag[score] += 1
+    end
+    bag.sort_by { |number, count| count }.last[0]
   end
 
   def count
     @redis.zcount(@name, "-inf", "+inf")
+  end
+
+private
+
+  def all_with_scores
+    @redis.zrange(@name, 0, count, {withscores: true})
   end
 
 end
