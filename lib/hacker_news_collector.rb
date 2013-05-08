@@ -16,6 +16,7 @@ class HackerNewsCollector
     end
     $stderr.puts "The following mail has been sent:"
     $stderr.puts mail.to_s
+    mail.deliver
   end
 
   def initialize
