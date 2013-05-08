@@ -16,6 +16,10 @@ class HackerNewsCollector
     end
     $stderr.puts "The following mail has been sent:"
     $stderr.puts mail.to_s
+
+
+    # More info about configuration: https://github.com/mikel/mail
+    mail.delivery_method :sendmail
     mail.deliver
   end
 
